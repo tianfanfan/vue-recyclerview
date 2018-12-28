@@ -74,7 +74,7 @@ export default function InfiniteScroller (scroller, source, options) {
   this.scroller_.addEventListener('scroll', this.onScroll_.bind(this))
   window.addEventListener('resize', this.onResize_.bind(this))
   window.addEventListener('orientationchange', this.onResize_.bind(this))
-  
+
   // Create an element to force the scroller to allow scrolling to a certain
   // point.
   // this.scrollRunway_ = document.createElement('div')
@@ -267,7 +267,7 @@ InfiniteScroller.prototype = {
       if (item.node) {
         this.unusedNodes.push(item.node)
       }
-    }    
+    }
   },
 
   clearTombstone (item) {
@@ -379,7 +379,7 @@ InfiniteScroller.prototype = {
         this.setStyle(this.items_[i].node, 'transform', 'translate3d('+ x + 'px,' + y + 'px, 0)')
       }
       this.items_[i].top = y
-      
+
       if ((i + 1) % this.column === 0) {
         this.curPos += (this.items_[i].height || this.tombstoneSize_) * this.column
       }

@@ -6,29 +6,37 @@ import {
   preventDefaultException,
   assign,
   setStyle
- } from './util'
+} from './util'
 
 const Loading = {
-  render (h) {
-    return h('div', {
-      attrs: {
-        class: 'recyclerview-loading'
-      }
-    }, 'Loading...')
+  render(h) {
+    return h(
+      'div',
+      {
+        attrs: {
+          class: 'recyclerview-loading'
+        }
+      },
+      'Loading...'
+    )
   }
 }
 
 const Tombstone = {
-  render (h) {
-    return h('div', {
-      attrs: {
-        class: 'recyclerview-item tombstone'
+  render(h) {
+    return h(
+      'div',
+      {
+        attrs: {
+          class: 'recyclerview-item tombstone'
+        },
+        style: {
+          height: '100px',
+          width: '100%'
+        }
       },
-      style: {
-        height: '100px',
-        width: '100%'
-      }
-    }, '')
+      ''
+    )
   }
 }
 
@@ -49,7 +57,7 @@ const options = {
   props: {}
 }
 
-export default (Vue) => {
+export default Vue => {
   return {
     name: 'RecyclerView',
     props: {
@@ -72,30 +80,38 @@ export default (Vue) => {
         default: 'div'
       }
     },
-    render (h) {
-      return h(this.tag, {
-        attrs: {
-          class: 'recyclerview-container'
-        }
-      }, [
-        h(this.loading || Loading),
-        h(this.tag, {
+    render(h) {
+      return h(
+        this.tag,
+        {
           attrs: {
-            class: 'recyclerview'
-          },
-          on: {
-            touchstart: this._start,
-            touchmove: this._move,
-            touchend: this._end,
-            touchcancel: this._end,
-            mousedown: this._start,
-            mousemove: this._move,
-            mouseup: this._end
+            class: 'recyclerview-container'
           }
-        })]
+        },
+        [
+          h(this.loading || Loading, {
+            attrs: {
+              class: 'recyclerview-loading'
+            }
+          }),
+          h(this.tag, {
+            attrs: {
+              class: 'recyclerview'
+            },
+            on: {
+              touchstart: this._start,
+              touchmove: this._move,
+              touchend: this._end,
+              touchcancel: this._end,
+              mousedown: this._start,
+              mousemove: this._move,
+              mouseup: this._end
+            }
+          })
+        ]
       )
     },
-    data () {
+    data() {
       return {
         startPointer: {
           x: 0,
@@ -109,42 +125,47 @@ export default (Vue) => {
         _scroller: null
       }
     },
-    mounted () {
+    mounted() {
       this.init()
     },
-    beforeDestroy () {
+    beforeDestroy() {
       this._scroller.destroy()
       this._scroller = null
     },
     methods: {
-      init () {
-        this._options = assign({}, options, {
-          prerender: this.prerender || options.prerender,
-          remain: this.remain || options.remain,
-          column: this.column || options.column,
-          waterflow: this.waterflow || options.waterflow,
-          fetch: this.fetch,
-          list: this.list,
-          item: this.item,
-          loading: this.loading,
-          tombstone: this.tombstone
-        }, this.options)
+      init() {
+        this._options = assign(
+          {},
+          options,
+          {
+            prerender: this.prerender || options.prerender,
+            remain: this.remain || options.remain,
+            column: this.column || options.column,
+            waterflow: this.waterflow || options.waterflow,
+            fetch: this.fetch,
+            list: this.list,
+            item: this.item,
+            loading: this.loading,
+            tombstone: this.tombstone
+          },
+          this.options
+        )
 
         this._contentSource = new ContentSource(Vue, this._options)
 
         this.$list = this.$el.querySelector('.recyclerview')
-        this._scroller = new InfiniteScroller(
-          this.$list,
-          this._contentSource,
-          this._options
-        )
+        this._scroller = new InfiniteScroller(this.$list, this._contentSource, this._options)
         this.$emit('inited')
       },
-      scrollToIndex (index) {
+      scrollToIndex(index) {
         if (this.waterflow) {
           for (let i = 0, len = this._scroller.items_.length; i < len; i++) {
             if (i === index) {
-              this._scrollTo(this._scroller.items_[i].top - this._scroller.items_[i].height * this._options.column + this.$list.offsetWidth)
+              this._scrollTo(
+                this._scroller.items_[i].top -
+                  this._scroller.items_[i].height * this._options.column +
+                  this.$list.offsetWidth
+              )
             }
           }
           return
@@ -155,26 +176,34 @@ export default (Vue) => {
           this._scrollToBottom()
         })
       },
-      _scrollTo (top) {
+      _scrollTo(top) {
         top = top || 0
         this.$list.scrollTop = Number(top)
       },
-      _scrollToBottom () {
+      _scrollToBottom() {
         this._scrollTo(this.$list.scrollHeight)
       },
-      _renderListStyle () {
-        setStyle(this.$list, 'transform', 'translate3d(0, ' + this.distance + 'px, 0)', this.options.usePrefix)
+      _renderListStyle() {
+        setStyle(
+          this.$list,
+          'transform',
+          'translate3d(0, ' + this.distance + 'px, 0)',
+          this.options.usePrefix
+        )
       },
-      _start (e) {
+      _start(e) {
         if (this.$list.scrollTop > 0) return
         this.pulling = true
         this.startPointer = getEventPosition(e)
         setStyle(this.$list, 'transition', 'transform .2s', this.options.usePrefix)
-        if (this.preventDefault && !preventDefaultException(e.target, this._options.preventDefaultException)) {
+        if (
+          this.preventDefault &&
+          !preventDefaultException(e.target, this._options.preventDefaultException)
+        ) {
           e.preventDefault()
         }
       },
-      _move (e) {
+      _move(e) {
         if (!this.pulling) return
         const pointer = getEventPosition(e)
         const distance = pointer.y - this.startPointer.y
@@ -184,7 +213,10 @@ export default (Vue) => {
           return
         }
 
-        if (this.preventDefault && !preventDefaultException(e.target, this._options.preventDefaultException)) {
+        if (
+          this.preventDefault &&
+          !preventDefaultException(e.target, this._options.preventDefaultException)
+        ) {
           e.preventDefault()
         }
 
@@ -194,9 +226,12 @@ export default (Vue) => {
         }
         requestAnimationFrame(this._renderListStyle.bind(this))
       },
-      _end (e) {
+      _end(e) {
         if (!this.pulling) return
-        if (this.preventDefault && !preventDefaultException(e.target, this._options.preventDefaultException)) {
+        if (
+          this.preventDefault &&
+          !preventDefaultException(e.target, this._options.preventDefaultException)
+        ) {
           e.preventDefault()
         }
         this.pulling = false
