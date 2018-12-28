@@ -1,6 +1,6 @@
 # vue-recyclerview
 
-[![npm](https://img.shields.io/npm/v/vue-recyclerview.svg)](https://www.npmjs.com/package/vue-recyclerview)
+[![npm](https://img.shields.io/npm/v/vue-recyclerview.svg)](https://www.npmjs.com/package/@tianfanfan/vue-recyclerview)
 
 Mastering Large Lists with the vue-recyclerview
 
@@ -31,7 +31,7 @@ no CDN way
 ### NPM
 
 ```bash
-    $ npm install vue-recyclerview
+  $ npm install @tianfanfan/vue-recyclerview
 ```
 
 When used with a module system, you must explicitly install the `vue-recyclerview` via `Vue.use()` in `main.js`:
