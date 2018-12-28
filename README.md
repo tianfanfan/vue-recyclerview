@@ -1,6 +1,6 @@
 # vue-recyclerview
 
-[![npm](https://img.shields.io/npm/v/vue-recyclerview.svg)](https://www.npmjs.com/package/@tianfanfan/vue-recyclerview)
+[![npm](https://img.shields.io/npm/v/@tianfanfan/vue-recyclerview.svg)](https://www.npmjs.com/package/@tianfanfan/vue-recyclerview)
 
 Mastering Large Lists with the vue-recyclerview
 
