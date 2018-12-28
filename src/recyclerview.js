@@ -91,7 +91,8 @@ export default Vue => {
         [
           h(this.loading || Loading, {
             attrs: {
-              class: 'recyclerview-loading'
+              class: 'recyclerview-loading',
+              needRefreshData: this.needRefreshData
             }
           }),
           h(this.tag, {
@@ -113,7 +114,6 @@ export default Vue => {
     },
     data() {
       return {
-
         startPointer: {
           x: 0,
           y: 0
@@ -123,7 +123,17 @@ export default Vue => {
         distance: 0,
         pulling: false,
         _contentSource: null,
-        _scroller: null
+        _scroller: null,
+        needRefreshData: false
+      }
+    },
+    watch: {
+      distance(val) {
+        if (val >= options.distance) {
+          this.needRefreshData = true
+        } else {
+          this.needRefreshData = false
+        }
       }
     },
     mounted() {
