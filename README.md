@@ -179,6 +179,20 @@ class="recyclerview-container wechat"
 @inited="initScrollToBottom"
 ></RecyclerView>
 ```
+- loading props
+
+```vue
+<LoadingComp
+></LoadingComp>
+
+// loading component has two props
+export default {
+  props:{
+    scrolledRefresh: {},
+    isRefresh: {}
+  }
+}
+```
 
 ```javascript
 data () {
