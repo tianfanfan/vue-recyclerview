@@ -416,7 +416,7 @@ InfiniteScroller.prototype = {
             this.items_[i].data) {
           // TODO: Probably best to move items on top of tombstones and fade them in instead.
           if (this.ANIMATION_DURATION_MS) {
-            this.items_[i].node.style.zIndex = 1;
+            this.items_[i].node.style.zIndex = -1;
             tombstoneAnimations[i] = [this.items_[i].node, this.items_[i].top - this.anchorScrollTop]
           } else {
             this.items_[i].node.classList.add(this.INVISIBLE_CLASS)

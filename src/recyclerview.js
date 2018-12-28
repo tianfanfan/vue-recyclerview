@@ -113,6 +113,7 @@ export default Vue => {
     },
     data() {
       return {
+
         startPointer: {
           x: 0,
           y: 0
