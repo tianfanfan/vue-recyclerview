@@ -11,7 +11,7 @@ var version = process.env.VERSION || require('../package.json').version
 var banner =
   '/*!\n' +
   ' * Vue-RecyclerView.js v' + version + '\n' +
-  ' * (c) ' + new Date().getFullYear() + ' Awe <hilongjw@gmail.com>\n' +
+  ' * (c) ' + new Date().getFullYear() + ' tianfanfan <tianfanfan7@gmail.com>\n' +
   ' * Released under the MIT License.\n' +
   ' */\n'
 
