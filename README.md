@@ -26,16 +26,7 @@ Vue 2.0 +
 
 ### Direct Download / CDN
 
-https://unpkg.com/vue-recyclerview/dist/vue-recyclerview
-
-[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/vue-recyclerview/dist/vue-recyclerview.js
- 
-Include vue-recyclerview after Vue and it will install itself automatically:
-
-```html
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-recyclerview/dist/vue-recyclerview.js"></script>
-```
+no CDN way
 
 ### NPM
 
@@ -43,7 +34,7 @@ Include vue-recyclerview after Vue and it will install itself automatically:
     $ npm install vue-recyclerview
 ```
 
-When used with a module system, you must explicitly install the `vue-recyclerview` via `Vue.use()`:
+When used with a module system, you must explicitly install the `vue-recyclerview` via `Vue.use()` in `main.js`:
 
 ```javascript
 import Vue from 'vue'
@@ -51,8 +42,6 @@ import VueRecyclerviewNew from 'vue-recyclerview'
 
 Vue.use(VueRecyclerviewNew)
 ```
-
-You don't need to do this when using global script tags.
 
 ### Dev Build
 
@@ -92,8 +81,8 @@ new Vue({
     <RecyclerView
       :prerender="30"
       style="height: calc(100vh - 50px)"
-      :fetch="MiFetch" 
-      :item="MiItem" 
+      :fetch="MiFetch"
+      :item="MiItem"
       :tombstone="MiTomstone"
     ></RecyclerView>
   </div>
@@ -125,8 +114,8 @@ export default {
 |:---|---|---|---|
 | `fetch`|Data fetching function |||
 |`list`|List data of RecyclerView|[]|
-|`prerender`|Number of items to instantiate beyond current view in the opposite direction.|20|Number|
-|`remain`|Number of items to instantiate beyond current view in the opposite direction.|10|Number|
+|`prerender`|Number of items to instantiate beyond current view in the opposite direction pre fetch.|20|Number|
+|`remain`|Number of items to instantiate beyond current view in the opposite direction pre slot.|10|Number|
 |`column`|Specifies how many columns the listings should be displayed in|1|Number|
 |`item`|The Vue component of RecyclerView's item||Vue component|
 |`tombstone`|The Vue component of RecyclerView's tombstone||Vue component|
@@ -137,6 +126,7 @@ export default {
 - fetch:Function
 
 ```
+// your fetch method must be like this:
 function fetch (limit:Number, skip:Number) {
   return Promise.resolve({
     list: list // Array,
@@ -161,7 +151,7 @@ function fetch (limit:Number, skip:Number) {
   height: 100,
   width: 100,
   top: 0,
-}, 
+},
 // tombstone
 {
   vm: null
@@ -176,12 +166,12 @@ function fetch (limit:Number, skip:Number) {
 - options
 
 ```vue
-<RecyclerView 
+<RecyclerView
 ref="RecyclerView"
 key="wechat"
-class="recyclerview-container wechat" 
-:fetch="wechatFetch" 
-:item="ChatItem" 
+class="recyclerview-container wechat"
+:fetch="wechatFetch"
+:item="ChatItem"
 :tombstone="Tombstone"
 :prerender="10"
 :remain="10"

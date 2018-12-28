@@ -1,6 +1,6 @@
 {
   "name": "vue-recyclerview",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Mastering Large Lists with the vue-recyclerview",
   "main": "dist/vue-recyclerview.js",
   "directories": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hilongjw/vue-recyclerview.git"
+    "url": "git+https://github.com/tianfanfan/vue-recyclerview.git"
   },
   "unpkg": "dist/vue-recyclerview.js",
   "files": [
@@ -37,10 +37,10 @@
     "rollup-plugin-postcss": "^0.5.3",
     "rollup-plugin-uglify": "^1.0.1"
   },
-  "author": "Awe <hilongjw@gmail.com>",
+  "author": "Tianfan <tianfanfan7@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hilongjw/vue-recyclerview/issues"
+    "url": "https://github.com/tianfanfan/vue-recyclerview/issues"
   },
-  "homepage": "https://github.com/hilongjw/vue-recyclerview#readme"
+  "homepage": "https://github.com/tianfanfan/vue-recyclerview#readme"
 }
