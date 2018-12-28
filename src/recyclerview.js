@@ -129,7 +129,7 @@ export default Vue => {
     },
     watch: {
       distance(val) {
-        if (val >= options.distance) {
+        if (val >= this._options.distance) {
           this.needRefreshData = true
         } else {
           this.needRefreshData = false
