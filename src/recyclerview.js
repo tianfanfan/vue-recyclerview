@@ -92,7 +92,7 @@ export default Vue => {
           h(this.loading || Loading, {
             attrs: {
               class: 'recyclerview-loading',
-              needRefreshData: this.needRefreshData
+              scrolledRefresh: this.scrolledRefresh
             }
           }),
           h(this.tag, {
@@ -124,15 +124,18 @@ export default Vue => {
         pulling: false,
         _contentSource: null,
         _scroller: null,
-        needRefreshData: false
+        // 因下拉滚动导致的，需要刷新的状态
+        scrolledRefresh: false,
+        // 正在刷新的状态
+        isRefresh: false
       }
     },
     watch: {
       distance(val) {
         if (val >= this._options.distance) {
-          this.needRefreshData = true
+          this.scrolledRefresh = true
         } else {
-          this.needRefreshData = false
+          this.scrolledRefresh = false
         }
       }
     },
@@ -145,6 +148,7 @@ export default Vue => {
     },
     methods: {
       init() {
+        var self = this
         this._options = assign(
           {},
           options,
@@ -153,7 +157,13 @@ export default Vue => {
             remain: this.remain || options.remain,
             column: this.column || options.column,
             waterflow: this.waterflow || options.waterflow,
-            fetch: this.fetch,
+            fetch: function(...args) {
+              self.isRefresh = true
+              return self.fetch(...args).then(data => {
+                self.isRefresh = false
+                return data
+              })
+            },
             list: this.list,
             item: this.item,
             loading: this.loading,
@@ -251,6 +261,8 @@ export default Vue => {
           this.$list.style.transform = ''
         })
         if (this.distance >= this._options.distance) {
+          // 开始刷新列表
+          this.isRefresh = true
           this.distance = 0
           this._scroller.clear()
         }
