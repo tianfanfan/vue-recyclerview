@@ -92,7 +92,8 @@ export default Vue => {
           h(this.loading || Loading, {
             attrs: {
               class: 'recyclerview-loading',
-              scrolledRefresh: this.scrolledRefresh
+              scrolledRefresh: this.scrolledRefresh,
+              isRefresh: this.isRefresh
             }
           }),
           h(this.tag, {
